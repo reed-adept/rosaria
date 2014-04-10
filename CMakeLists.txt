@@ -39,8 +39,12 @@ generate_dynamic_reconfigure_options(cfg/RosAria.cfg)
 find_package(Boost REQUIRED COMPONENTS thread)
 include_directories(${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} /usr/local/Aria/include)
 link_directories(/usr/local/Aria/lib)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11")
+
 add_executable(RosAria RosAria.cpp)
-add_dependencies(RosAria rosaria_gencfg)
+add_dependencies(RosAria rosaria_gencfg rosaria_gencpp rosaria_generate_messages_cpp)
 target_link_libraries(RosAria ${catkin_LIBRARIES} ${Boost_LIBRARIES} Aria pthread dl rt)
 set_target_properties(RosAria PROPERTIES COMPILE_FLAGS "-fPIC")
 #set_target_properties(RosAria PROPERTIES LINK_FLAGS "-Wl")
